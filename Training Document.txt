@@ -1,0 +1,86 @@
+﻿Gamer work space concept. gaming set up. top view of a gaming gear, keyboard, mouse, gamepad, joystick, headset and a smartphone on a colorful desk 
+
+Training
+
+
+
+
+Last updated Aug 23, 2025
+Owner Việt Hoàng
+
+
+
+
+Resources
+Resources để sử dụng trong quá trình training qua các tuần:
+* Template app - Figma design
+* Air Quality API
+* Weather API
+* Auth API
+Repo Github: https://github.com/hviiet/flutter-training
+Quy tắc tạo branch và commit:
+* Đặt tên branch: tuần + tên 
+   * Ví dụ: week-1-nguyen-van-a
+* Commit message: commit message bằng tiếng anh, rõ nghĩa, bắt đầu với mục đích tương ứng(feat, fix, ...)
+   * Ví dụ: feat: implement home screen
+* Sau khi thực hiện bài tập của mỗi tuần, tạo 1 pull request để merge code của tuần hiện tại vào tuần trước(tuần đầu tiên sẽ chọn merge vào main), mục đích chỉ để review code, KHÔNG MERGE
+Một số khóa học chất lượng trên Youtube:
+* 📱 FULL Flutter Beginner Course • Programming Basics / Widgets / Navigation / User Input / UI
+* The Best Flutter Course in 3 Hours • Pizza App #1
+* The Ultimate Flutter Tutorial for Beginners - 2025 Full Course
+Timeline
+Time
+	Goal
+	Tuần 1
+	🎯 Làm quen với Flutter:
+* Cài đặt môi trường: ưu tiên dùng VsCode hơn so với Android Studio
+* Cấu trúc project Flutter
+* Widget cơ bản: Text, Container, Row, Column, ListView, Scaffold, AppBar, ...
+* Layout: Stack, Expanded, Flexible, MediaQuery, ...
+* Form & Validation: TextField, TextFormField, Form, validator
+* Stateful vs Stateless widget
+* Navigation cơ bản: Navigator.push/pop 
+* Animation cơ bản
+* Hiểu về widget tree
+* Debug với flutter
+🔍 Bài tập:
+* Thực hiện các màn hình Onboarding và Login trong link figma
+* Chỉ cần làm UI, không cần thực hiện logic login
+	Tuần 2
+	🎯 Quản lý state với Provider:
+* Nắm được state là gì trong Flutter
+* Provider cơ bản: ChangeNotifier, Consumer, Provider.of
+🔍 Bài tập:
+* Code màn hình Home, Data Bank, More
+* Code Bottom Navigation bar
+* Xử lý logic chuyển tab bằng provider
+* Set cứng data, chưa cần call từ api
+	Tuần 3
+	🎯 Local Storage và API Call:
+* shared_preferences: lưu token, theme, simple settings
+* hive, sqflite, ... nếu muốn lưu dữ liệu phức tạp hơn
+* Hiện tại trong quá trình training chỉ cần dùng shared_preferences
+* Gọi API với http, dio
+* Parse JSON thành model
+* FutureBuilder, async UI
+* Error handling(401, 403)
+🔍 Bài tập:
+* Thực hiện logic cho màn hình login
+* Dùng Auth API
+* Lưu access/refresh token vào local storage
+* Xử lý khi token hết hạn
+	Tuần 4-5
+	🎯 Quản lý state với Bloc, hoàn thiện project:
+* BlocBuilder, BlocProvider, BlocConsumer
+* Sự khác nhau giữa Bloc và Cubit
+🔍 Bài tập:
+* Code màn hình Location Details, AQI Scale
+* Dùng http/dio để gọi api của Air Quality API và Weather API lấy data và hiển thị trên UI
+* Dùng bloc để quản lý state, lưu lại data để hiển thị giữa các màn hình 
+	Tuần 6
+	🔍 Bài tập:
+* Refactor lại code
+* Dùng các package để hỗ trợ sinh code 
+   * freezed: dùng để tạo model bất biến, sealed class
+   * json_serializable: parse JSON sang object nhanh chóng
+   * build_runner: generate code
