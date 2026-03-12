@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:office_plugin_ui/core/services/storage_service.dart';
 import 'package:office_plugin_ui/features/dashboard/main_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,6 +14,55 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  Future<void> _handleLogin() async {
+    if(_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final dio = Dio();
+        final response = await dio.post(
+          'https://dummyjson.com/auth/login',
+          data: {
+            'username': _emailController.text,
+            'password': _passwordController.text,
+          },
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          final token = response.data['accessToken'];
+
+          await StorageService().saveToken(token);
+
+          if (mounted) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainDashboard()));
+          }
+        } else {
+          if (mounted) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainDashboard()));
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Login failed: $e'))
+          );
+        }
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -34,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter email';
-                if (!value.contains('@')) return 'Email not valid';
+                // if (!value.contains('@')) return 'Email not valid';
                 return null;
               },
             ),
@@ -56,10 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MainDashboard())
-                  );
+                  _handleLogin();
                 }
               },
               child: const Text('Login')),
