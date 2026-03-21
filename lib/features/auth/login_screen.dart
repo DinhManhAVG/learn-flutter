@@ -7,7 +7,6 @@ import 'package:todo_app_flutter/core/theme/app_colors.dart';
 import 'package:todo_app_flutter/core/widgets/glass_card.dart';
 import 'package:todo_app_flutter/core/widgets/gradient_button.dart';
 import 'package:todo_app_flutter/features/auth/signup_screen.dart';
-import 'package:todo_app_flutter/features/dashboard/main_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,12 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
           _emailController.text.trim(),
           _passwordController.text,
         );
-
+        // Pop everything back to AuthGate (root), which now shows MainDashboard
         if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const MainDashboard()),
-          );
+          Navigator.of(context).popUntil((route) => route.isFirst);
         }
       } on FirebaseAuthException catch (e) {
         if (mounted) {

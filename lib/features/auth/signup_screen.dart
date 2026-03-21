@@ -48,6 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
             MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
         }
+        // After login, AuthGate will automatically navigate to MainDashboard
       } on FirebaseAuthException catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
